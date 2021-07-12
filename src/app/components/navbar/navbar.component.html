@@ -1,0 +1,66 @@
+<div class="header">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <!-- <a routerLink="Login"><img src="./assets/image/as.jpg." alt="" width="50" height="51"></a> -->
+      <a class="navbar-brand hotel" routerLink="home"><i class="fas fa-home"></i> Torneo Deportivo</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <div class="inicio">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" style="margin-right: 30px;" href="#" id="navbarDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <strong> Inicio de sesión </strong>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" routerLink="login">Login</a></li>
+                <li><a class="dropdown-item" routerLink="register">Registrarse</a></li>
+
+
+
+
+                <div *ngIf="_usersService.getPersona()">
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" [routerLink]="['/profile', _usersService.getPersona()._id]"><i
+                      class="fas fa-user-circle"></i> Perfil</a></li>
+                  <li *ngIf="_usersService.getPersona() && _usersService.getPersona().role == 1"><a
+                      class="dropdown-item" [routerLink]="['/leaguesUser', _usersService.getPersona()._id]"><i class="fas fa-futbol">
+                      </i> Ligas y Torneos</a></li>
+                </div>
+
+                <div *ngIf="_usersService.getPersona()">
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item"  (click)="limpiarStorage()"><i class="fas fa-lock"></i>
+                      Cerrar Sesión</a></li>
+                </div>
+
+              </ul>
+            </li>
+          </div>
+
+          <div *ngIf=" _usersService.getPersona() &&_usersService.getPersona().role == 0  " class="itemNav">
+            <a routerLink="leagues" class="nav-link usuario">
+              <i class="fas fa-table"></i><strong> Ligas y Torneos </strong></a>
+          </div>
+
+          <div *ngIf="_usersService.getPersona() &&_usersService.getPersona().role == 0 " class="itemNav">
+            <a routerLink="users" class="nav-link usuario">
+              <i class="fas fa-users"></i><strong> Usuarios </strong></a>
+          </div>
+
+
+
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+</div>

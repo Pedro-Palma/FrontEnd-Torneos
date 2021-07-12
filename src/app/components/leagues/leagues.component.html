@@ -1,0 +1,137 @@
+<div class="centro">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre de Liga</th>
+        <th scope="col">Patrocinador</th>
+        <th scope="col">Región</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let us of leagueA">
+        <td>{{ us._id }}</td>
+        <td>{{ us.name }}</td>
+        <td>{{ us.owner.user }}</td>
+        <td>{{ us.country }}</td>
+        <td class="none">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <!-- Editar Usuario -->
+            <button title="Editar al Usuario" type="button" class="btn" data-bs-toggle="modal"
+            data-bs-target="#modalEditUser"(click)="findLeagueId(us._id)"><i class="fas fa-edit"></i></button>
+            <!-- Ver detalles del usuario -->
+            <button title="Ver registros de Usuario" type="button" class="btn" (click)="findLeagueId(us._id)" [routerLink]="['/teams',us._id]"><i class="fas fa-plus"></i></button>
+            <!-- Eliminar Usuario -->
+            <button title="Eliminar Usuario" type="button" class="btn" data-bs-toggle="modal"
+            data-bs-target="#modalDeleteUser" (click)="findLeagueId(us._id)"><i class="fas fa-trash-alt"></i></button>
+
+
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br><br><br><br>
+<p class="descript">
+  Añadir ligas como Administrador
+</p>
+<div class="login-form">
+  <div>
+    <img src="./assets/image/Logo.png" alt="Logo" title="Logo" width="180">
+  </div>
+  <form class="form">
+    <div class="half">
+      <div class="group">
+        <input type="text" id="nombre" name="name" #name="ngModel" [(ngModel)]="addLeague.name">
+        <label>Nombre de Liga</label>
+      </div>
+    </div>
+    <div class="half">
+      <div class="group">
+        <input type="text" id="usuario" name="owner" #owner="ngModel" [(ngModel)]="addLeague.owner._id">
+        <label>Patrocinador</label>
+      </div>
+    </div>
+    <div class="half">
+      <div class="group">
+        <input type="text" id="email" name="country" #country="ngModel" [(ngModel)]="addLeague.country">
+        <label>Región de Liga</label>
+      </div>
+    </div>
+    <br>
+    <div class="almost-half">
+      <button type="button" class="button buttonBlue" (click)="addLeagueAdmin()"> Agreagar liga
+        <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+      </button>
+    </div>
+  </form>
+</div>
+
+</div>
+
+<!-- Modal #Edit User# -->
+<div class="modal fade" id="modalEditUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Liga {{ leagueSelected.name }} </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="group">
+            <input type="text" id="nombre" name="name" #name="ngModel" [(ngModel)]="leagueSelected.name">
+            <label>Nombre de Liga</label>
+          </div>
+          <div class="group">
+            <input type="text" id="usuario" name="owner" #owner="ngModel" [(ngModel)]="leagueSelected.owner">
+            <label>Patrocinador</label>
+          </div>
+          <div class="group">
+            <input type="text" id="usuario" name="country" #country="ngModel" [(ngModel)]="leagueSelected.country">
+            <label>Región</label>
+          </div>
+          <br>
+            <button type="button" class="button buttonBlue" data-bs-dismiss="modal" (click)="updateLeagueAdmin()">Guardar cambios
+              <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+            </button>
+            <button type="button" class="bot cancel" data-bs-dismiss="modal">Cancelar
+              <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+            </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal #Delete User# -->
+<div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Liga</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+
+      <form>
+          <p class="subtitle">¿Desea Eliminar {{leagueSelected.name}}?</p>
+          <br>
+        <div class="modal-footer">
+          <button type="button" class="button buttonBlue" data-bs-dismiss="modal"
+            (click)="deleteLeagueAdmin(leagueSelected._id)">Si, eliminar
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+          <button type="button" class="bot cancel" data-bs-dismiss="modal">Cancelar
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

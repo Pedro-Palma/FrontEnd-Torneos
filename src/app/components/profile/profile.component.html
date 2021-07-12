@@ -1,0 +1,111 @@
+<style>
+  .correo {
+  background-image: url("./assets/image/corre.png");
+}
+
+.facebook {
+  background-image: url("./assets/image/facebook.png");
+  border-radius: 50%;
+}
+
+.instagram {
+  background-image: url("./assets/image/instagram.png");
+  border-radius: 50%;
+}
+</style>
+
+<div class="header">
+  <img class="avatar" src="https://image.flaticon.com/icons/png/512/146/146007.png"/>
+  <h1 *ngIf="_usersService.getPersona()" class="user-name"> {{_usersService.getPersona().user}} </h1>
+</div>
+<ul class="socials">
+  <li>
+    <i class="iconos correo"></i>
+    <a *ngIf="_usersService.getPersona()" href="#"> {{_usersService.getPersona().user}} </a>
+  </li>
+</ul>
+<div class="about">
+  <h3>Acerca de </h3>
+  <p *ngIf="_usersService.getPersona()">
+    {{_usersService.getPersona().user}} un joven que le gusta el futbol y muy bueno en el tema
+  </p>
+</div>
+<div class="about">
+  <p>
+<!-- Editar -->
+    <button *ngIf="_usersService.getPersona() " title="Editar Usuario" type="button" class="btn"><i class="fas fa-edit"
+     data-bs-toggle="modal" data-bs-target="#modalEditUser" (click)="listUserID(usuarioC._id)"></i></button>
+<!-- Detalles -->
+    <button *ngIf="_usersService.getPersona() " title="Ver registros de Usuario" type="button" class="btn"><i class="fas fa-plus"
+      [routerLink]="['/leaguesUser', _usersService.getPersona()._id]"></i></button>
+
+
+<!-- Eliminar -->
+    <button *ngIf="_usersService.getPersona() " title="Eliminar Usuario" type="button" class="btn"><i class="fas fa-trash-alt"
+     data-bs-toggle="modal" data-bs-target="#modalDeleteUser"></i></button>
+  </p>
+</div>
+
+<!-- Modal #Edit User# -->
+<div class="modal fade" id="modalEditUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{_usersService.getPersona().user}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="logo-image">
+            <img src="https://image.flaticon.com/icons/png/512/146/146007.png" alt="Logo" title="Logo" width="115">
+          </div>
+          <div class="group">
+            <input type="text" id="nombre" name="user" #user="ngModel" [(ngModel)]="userDetails.user">
+            <label>Username</label>
+          </div>
+          <div class="group">
+            <input type="text" id="usuario" name="email" #email="ngModel" [(ngModel)]="userDetails.email">
+            <label>Email</label>
+          </div>
+          <br>
+            <button type="button" class="button buttonBlue" data-bs-dismiss="modal" (click)="updateProfile()">Guardar cambios
+              <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+            </button>
+            <button type="button" class="bot cancel" data-bs-dismiss="modal">Cancelar
+              <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+            </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal #Delete User# -->
+<div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+
+      <form>
+          <p class="subtitle">¿Desea eliminar su cuenta? Esta acción es irreversible</p>
+          <br>
+        <div class="modal-footer">
+          <button type="button" class="button buttonBlue" data-bs-dismiss="modal"
+            (click)="deleteProfile()">Si, eliminar
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+          <button type="button" class="bot cancel" data-bs-dismiss="modal">Cancelar
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

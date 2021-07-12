@@ -1,0 +1,198 @@
+<div class="centro" >
+  <div >
+  <table class="table" id="tablePDF" >
+
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Email</th>
+        <th scope="col">Rol</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let us of users">
+        <td>{{ us._id }}</td>
+        <td>{{ us.user }}</td>
+        <td>{{ us.email }}</td>
+        <td *ngIf="us.role == 0">Administrador</td>
+        <td *ngIf="us.role == 1">Usuario</td>
+        <td *ngIf="us.role == 1" class="none">
+
+
+
+
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <!-- Editar Usuario -->
+            <button title="Editar al Usuario" type="button" class="btn" data-bs-toggle="modal"
+            data-bs-target="#modalEditUser" (click)="listUserID(us._id)"><i class="fas fa-edit"></i></button>
+            <!-- Ver detalles del usuario -->
+            <button title="Ver registros de Usuario" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modalViewUser">
+              <i class="fas fa-plus"></i></button>
+
+            <!-- Eliminar Usuario -->
+            <button title="Eliminar Usuario" type="button" class="btn" data-bs-toggle="modal"
+            data-bs-target="#modalDeleteUser" (click)="listUserID(us._id)"><i class="fas fa-trash-alt"></i></button>
+          </div>
+        </td>
+
+        <td *ngIf="us.role == 0" class="none">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <!-- Ver detalles del usuario -->
+            <button title="Ver registros de Usuario" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modalViewUser"
+            (click)="listUserID(us._id)"><i class="fas fa-plus"></i></button>
+          </div>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br><br><br>
+  <p class="descript">
+    Añadir usuarios como Administrador
+  </p>
+  <div class="login-form">
+    <div>
+      <img src="./assets/image/admin.png" alt="Admin-image" title="Logo" width="180">
+    </div>
+    <form class="form">
+      <div class="half">
+        <div class="group">
+          <input type="text" id="user" name="user" #user="ngModel" [(ngModel)]="adminNew.user">
+          <label>Usuario</label>
+        </div>
+      </div>
+      <div class="half">
+        <div class="group">
+          <input type="text" id="email" name="email" #email="ngModel" [(ngModel)]="adminNew.email">
+          <label>Email</label>
+        </div>
+      </div>
+      <div class="half">
+        <div class="group">
+          <input type="password" id="password" name="password" #password="ngModel" [(ngModel)]="adminNew.password">
+          <label>Contraseña</label>
+        </div>
+      </div>
+      <br>
+      <div class="almost-half">
+        <button type="button" class="button buttonBlue" (click)="addAdmin()">Añadir usuario
+          <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="borde"></div>
+
+</div>
+
+<!-- Modal #Edit User# -->
+<div class="modal fade" id="modalEditUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Modificar a {{ userSelected.user }} </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="logo-image">
+            <img src="./assets/image/as.jpeg" alt="Logo" title="Logo" width="115">
+          </div>
+          <div class="group">
+            <input type="text" id="nombre" name="user" #user="ngModel" [(ngModel)]="userSelected.user">
+            <label>Username</label>
+          </div>
+          <div class="group">
+            <input type="text" id="usuario" name="email" #email="ngModel" [(ngModel)]="userSelected.email">
+            <label>Email</label>
+          </div>
+          <div class="group">
+            <input type="text" id="rol" name="rol" #user="ngModel" [(ngModel)]="userSelected.role">
+            <label >Rol</label>
+          </div>
+          <br>
+            <button type="button" class="button buttonBlue" data-bs-dismiss="modal" (click)="updateUsers()">Guardar cambios
+              <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+            </button>
+            <button type="button" class="bot cancel" data-bs-dismiss="modal">Cancelar
+              <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+            </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal #Delete User# -->
+<div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+
+      <form>
+          <p class="subtitle">¿Desea Eliminar a {{userSelected.user}}?</p>
+          <br>
+        <div class="modal-footer">
+          <button type="button" class="button buttonBlue" data-bs-dismiss="modal"
+            (click)="deleteUsers(userSelected._id)">Si, eliminar
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+          <button type="button" class="bot cancel" data-bs-dismiss="modal">Cancelar
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="modalViewUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalles del usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+
+      <form>
+          <p class="title">Nombre de usuario: <br> {{userSelected.user}} <br><br></p>
+
+          <p class="title">Correo: <br> {{userSelected.email}}</p>
+          <br>
+          <br>
+        <div class="modal-footer">
+          <button type="button" class="button buttonBlue" data-bs-dismiss="modal"
+            >Ok!
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-primary " (click)="download()">descargar</button>
+
+
+
+
+

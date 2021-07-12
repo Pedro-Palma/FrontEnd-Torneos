@@ -1,0 +1,280 @@
+<div class="centro">
+  <h1 class="mb-4">Equipos</h1>
+  <table class="table">
+
+    <thead>
+      <tr class="aling-center">
+        <th scope="col">ID</th>
+        <th scope="col">Puesto</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Puntos</th>
+        <th scope="col">PJ</th>
+        <th scope="col">PG</th>
+        <th scope="col">PE</th>
+        <th scope="col">PP</th>
+        <th scope="col">Goles A.</th>
+        <th scope="col">Golen en C.</th>
+        <th scope="col">Diferencia</th>
+        <th scope="col">Acciones</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let us of teamT, index as id " class="text-center">
+        <td>{{ us._id }} </td>
+        <td>{{ id+ 1 }} </td>
+        <td>{{ us.name }} </td>
+        <td>{{ us.pts }}</td>
+        <td>{{us.pj}}</td>
+        <td>{{us.pg}}</td>
+        <td>{{us.pe}}</td>
+        <td>{{us.pp}}</td>
+
+        <td>{{ us.goalA }}</td>
+        <td>{{ us.goalC }}</td>
+        <td>{{us.goalA - us.goalC}}</td>
+        <td class="none">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <!-- Editar Usuario -->
+            <button title="Editar al equipo" type="button" class="btn" data-bs-toggle="modal"
+              data-bs-target="#modalEditUser" (click)="findTeamId(us._id)"><i class="fas fa-edit"></i></button>
+
+            <!-- Eliminar Usuario -->
+            <button title="Eliminar equipo" type="button" class="btn" data-bs-toggle="modal"
+              data-bs-target="#modalDeleteUser" (click)="findTeamId(us._id)"><i class="fas fa-trash-alt"></i></button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br><br><br>
+
+</div>
+
+
+<div class="centro">
+  <p class="descript">
+    Añadir equipos como Administrador
+  </p>
+  <div class="login-form">
+    <div>
+      <img src="./assets/image/team.png" alt="Logo" title="Logo" width="180">
+    </div>
+    <form class="form">
+      <div class="half">
+        <div class="group">
+          <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="addTeam.name">
+          <label>Nombre del equipo</label>
+        </div>
+      </div>
+      <div class="half">
+        <div class="group">
+          <input type="text" id="email" name="email" #img="ngModel" [(ngModel)]="addTeam.img">
+          <label>URL de imagen</label>
+        </div>
+      </div>
+      <br>
+      <div class="almost-half">
+        <button type="button" class="button buttonBlue" (click)="addTeamAdmin()">Añadir equipo a la liga
+          <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+  <!-- ----------------------------------------------tabla match---------------------------------------------------- -->
+
+<div class="centro">
+  <h1 class="mb-4">Partidos de la liga</h1>
+  <table class="table">
+
+    <thead>
+      <tr class="aling-center">
+        <th scope="col">Id</th>
+        <th scope="col">Equipo 1</th>
+        <th scope="col">Goles</th>
+        <th scope="col">Goles</th>
+        <th scope="col">Equipo 2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let us of matchT, index as id " class="text-center">
+        <td>{{ us._id }} </td>
+        <td>{{ us.team1 }} </td>
+        <td>{{ us.goal1 }}</td>
+        <td>{{us.goal2}}</td>
+        <td>{{us.team2}}</td>
+        <td class="none">
+          <div class="btn-group" role="group" aria-label="Basic example">
+
+            <!-- Eliminar Usuario -->
+            <button title="Eliminar partido" type="button" class="btn" data-bs-toggle="modal"
+              data-bs-target="#modalDeleteMatch" (click)="findMatchId(us._id)"><i class="fas fa-trash-alt"></i></button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br><br><br>
+
+</div>
+<!----           input match                                           --                                                             -->
+<div class="centro">
+  <p class="descript">
+    Añadir partidos como Administrador
+  </p>
+  <div class="login-form">
+    <div>
+      <img src="./assets/image/futbol-americano.png" alt="Logo" title="Logo" width="180">
+    </div>
+    <form class="form">
+      <div class="half">
+        <div class="group">
+          <input type="text" id="idteam1" name="idteam1" #idteam1="ngModel" [(ngModel)]="addMatch.idTeam1">
+          <label>Nombre del equipo 1</label>
+        </div>
+      </div>
+      <div class="half">
+        <div class="group">
+          <input type="text" id="idteam2" name="idteam2" #idteam2="ngModel" [(ngModel)]="addMatch.idTeam2">
+          <label>Nombre del equipo 2</label>
+        </div>
+      </div>
+      <div class="half">
+        <div class="group">
+          <input type="text" id="goal1" name="goal1" #goal1="ngModel" [(ngModel)]="addMatch.goal1">
+          <label>Goles del equipo 1</label>
+        </div>
+      </div>
+      <div class="half">
+        <div class="group">
+          <input type="text" id="goal2" name="goal2" #goal2="ngModel" [(ngModel)]="addMatch.goal2">
+          <label>Goles del equipo 2</label>
+        </div>
+      </div>
+
+      <br>
+      <div class="almost-half">
+        <button type="button" class="button buttonBlue" (click)="addMatchAdmin()">Añadir partido a la liga
+          <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal #Edit Team# -->
+<div class="modal fade" id="modalEditUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Modificar a: {{teamSelected.name}} </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="logo-image">
+            <img src={{teamSelected.img}} alt="Imagen equipo" title="Logo" width="115">
+          </div>
+          <div class="group">
+            <input type="text" id="nombre" name="name" #name="ngModel"[(ngModel)]="teamSelected.name">
+            <label>Nombre del equipo</label>
+          </div>
+          <div class="group">
+            <input type="text" id="imagen" name="img" #img="ngModel"[(ngModel)]="teamSelected.img">
+            <label>Url Imagen</label>
+          </div>
+          <br>
+          <button type="button" class="button buttonBlue" data-bs-dismiss="modal" (click)="updateTeamAdmin()">Guardar
+            cambios
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+          <button type="button" class="bot cancel" data-bs-dismiss="modal">Cancelar
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal #Delete Team# -->
+<div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar equipo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+
+      <form>
+        <p class="subtitle">¿Desea Eliminar a
+          {{teamSelected.name}} ?
+        </p>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="button buttonBlue" data-bs-dismiss="modal" (click)="deleteTeamAdmin(teamSelected._id)">Si, eliminar
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+          <button type="button" class="bot cancel" data-bs-dismiss="modal" >Cancelar
+            <div class="ripples buttonRipples" ><span class="ripplesCircle"></span></div>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal #Delete Match# -->
+
+<div class="modal fade" id="modalDeleteMatch" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar partido</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+
+      <form>
+        <p class="subtitle">¿Desea Eliminar este partido?
+        </p>
+        <br>
+        <div class="modal-footer">
+          <button type="button" class="button buttonBlue" data-bs-dismiss="modal" (click)="deleteMatchAdmin(matchSelected._id)">Si, eliminar
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+          <button type="button" class="bot cancel" data-bs-dismiss="modal" >Cancelar
+            <div class="ripples buttonRipples" ><span class="ripplesCircle"></span></div>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

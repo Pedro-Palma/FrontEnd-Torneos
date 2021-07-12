@@ -1,0 +1,117 @@
+<div class="centro">
+  <h1>Ligas Creadas</h1><br><br>
+  <div class="absolute">
+    <button class="sqare" *ngFor="let lg of league" >
+      {{lg.name}}<br>
+      <button title="Editar Liga" type="button" class="btn" data-bs-toggle="modal"
+      data-bs-target="#modalEditUser"(click)="findLeagueId(lg._id)"><i class="fas fa-edit"></i></button>
+
+      <button title="Eliminar Liga" type="button" class="btn" data-bs-toggle="modal"
+      data-bs-target="#modalDeleteUser" (click)="findLeagueId(lg._id)"><i class="fas fa-trash-alt"></i></button>
+
+      <button title="Ver liga" type="button" class="btn "[routerLink]="['/teamsLeague', lg._id]"><i class="fas fa-plus"></i></button>
+    </button>
+  </div>
+<br><br>
+<div *ngIf="_usersService.getPersona().role == 1">
+  <p class="descript">
+    Añadir ligas a {{_usersService.getPersona().user}}
+  </p>
+
+
+  <div class="login-form">
+    <div>
+      <img src="./assets/image/Logo.png" alt="Logo" title="Logo" width="180">
+    </div>
+  <form class="form">
+
+    <div class="half">
+
+      <div class="group">
+
+        <input type="text" id="nombre" name="name" #name="ngModel" [(ngModel)]="addLeague.name">
+        <label>Nombre de Liga</label>
+      </div>
+    </div>
+    <div class="half">
+      <div class="group">
+        <input type="text" id="email" name="country" #country="ngModel" [(ngModel)]="addLeague.country">
+        <label>Región de Liga</label>
+      </div>
+    </div>
+    <br>
+    <div class="almost-half">
+      <button type="button" class="button buttonBlue" (click)="addLeagueUser()"> Agreagar liga
+        <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+      </button>
+    </div>
+  </form>
+</div>
+</div>
+
+</div>
+
+
+<!-- Modal #Delete User# -->
+<div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Liga</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+
+      <form>
+          <p class="subtitle">¿Desea Eliminar a {{leagueSelected.name}}?</p>
+          <br>
+        <div class="modal-footer">
+          <button type="button" class="button buttonBlue" data-bs-dismiss="modal"
+            (click)="deleteLeagueUser(leagueSelected._id)">Si, eliminar
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+          <button type="button" class="bot cancel" data-bs-dismiss="modal">Cancelar
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal #Edit User# -->
+<div class="modal fade" id="modalEditUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Modificar a {{ leagueSelected.name }} </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div class="logo-image">
+            <img src="./assets/image/as.jpeg" alt="Logo" title="Logo" width="115">
+          </div>
+          <div class="group">
+            <input type="text" id="nombre" name="user" #user="ngModel" [(ngModel)]="leagueSelected.name">
+            <label>Nombre</label>
+          </div>
+          <div class="group">
+            <input type="text" id="usuario" name="email" #email="ngModel" [(ngModel)]="leagueSelected.country">
+            <label>Email</label>
+          </div>
+          <br>
+            <button type="button" class="button buttonBlue" data-bs-dismiss="modal" (click)="updateLeagueUser()">Guardar cambios
+              <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+            </button>
+            <button type="button" class="bot cancel" data-bs-dismiss="modal">Cancelar
+              <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+            </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

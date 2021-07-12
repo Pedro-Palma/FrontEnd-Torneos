@@ -1,0 +1,27 @@
+<form>
+  <div class="logo-image">
+    <img src="./assets/image/as.jpeg" alt="Logo" title="Logo" width="115">
+  </div>
+  <br>
+  <h1 class="title">T O R N E O</h1>
+  <p class="subtitle">C O N T R O L - D E P O R T I V O</p>
+  <div class="group">
+    <input type="text" id="usuario" name="user" #user="ngModel" [(ngModel)]="userreg.user">
+    <label>Usuario</label>
+  </div>
+  <div class="group">
+    <input type="text" id="email" name="email" #email="ngModel" [(ngModel)]="userreg.email">
+    <label>Email</label>
+  </div>
+  <div class="group">
+    <input type="password" id="password" name="password" #password="ngModel" [(ngModel)]="userreg.password">
+    <label>Contraseña</label>
+  </div>
+  <br>
+  <button type="button" class="button buttonBlue" (click)="register()">Registrarse
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+  <p>
+    Ya tienes una cuenta?<a routerLink="../login" routerLinkActive="active"> Haz clic aquí</a>
+  </p>
+</form>
